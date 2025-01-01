@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url><loc>index.html</loc></url>
+
+		<url><loc>tree.html</loc></url>
+
+			<url><loc>namespace-duyplus.html</loc></url>
+			<url><loc>namespace-duyplus.tmdbapi.html</loc></url>
+			<url><loc>namespace-duyplus.tmdbapi.classes.html</loc></url>
+			<url><loc>namespace-duyplus.tmdbapi.classes.config.html</loc></url>
+			<url><loc>namespace-duyplus.tmdbapi.classes.data.html</loc></url>
+			<url><loc>namespace-duyplus.tmdbapi.classes.jobs.html</loc></url>
+			<url><loc>namespace-duyplus.tmdbapi.classes.roles.html</loc></url>
+
+			<url><loc>duyplus.tmdbapi.classes.config.APIConfiguration.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.config.Configuration.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.data.ApiBaseObject.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.data.Collection.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.data.Company.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.data.Episode.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.data.Genre.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.data.Movie.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.data.Person.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.data.Review.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.data.Role.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.data.Season.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.data.TVShow.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.jobs.MovieJob.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.jobs.TVShowJob.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.roles.MovieRole.html</loc></url>
+			<url><loc>duyplus.tmdbapi.classes.roles.TVShowRole.html</loc></url>
+
+
+			<url><loc>source-classes.config.APIConfiguration.html</loc></url>
+			<url><loc>source-classes.config.Configuration.html</loc></url>
+			<url><loc>source-classes.data.ApiBaseObject.html</loc></url>
+			<url><loc>source-classes.data.Collection.html</loc></url>
+			<url><loc>source-classes.data.Company.html</loc></url>
+			<url><loc>source-classes.data.Episode.html</loc></url>
+			<url><loc>source-classes.data.Genre.html</loc></url>
+			<url><loc>source-classes.data.Movie.html</loc></url>
+			<url><loc>source-classes.data.Person.html</loc></url>
+			<url><loc>source-classes.data.Review.html</loc></url>
+			<url><loc>source-classes.data.Role.html</loc></url>
+			<url><loc>source-classes.data.Season.html</loc></url>
+			<url><loc>source-classes.data.TVShow.html</loc></url>
+			<url><loc>source-classes.jobs.MovieJob.html</loc></url>
+			<url><loc>source-classes.jobs.TVShowJob.html</loc></url>
+			<url><loc>source-classes.roles.MovieRole.html</loc></url>
+			<url><loc>source-classes.roles.TVShowRole.html</loc></url>
+</urlset>
