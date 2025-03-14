@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2025-03-14
+
+### Major Changes
+- Restructured the entire library for compatibility with CodeIgniter 4
+- Reorganized directories according to PSR-4 standards
+- Updated namespaces and class structure
+- Added return types for all methods
+- Improved error handling and null checking
+
+### Added
+- Added new TMDB configuration class compatible with CI4
+- Added new methods for searching movies by year
+- Improved documentation and usage instructions
+
+### Fixed
+- Fixed invalid JSON handling
+- Improved error handling for invalid API keys
+- Fixed errors when accessing non-existent properties
+
 ## [0.7] - 2025-01-01
 
 - Updated functions Configuration
