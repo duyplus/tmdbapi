@@ -1,17 +1,5 @@
 <?php
-namespace duyplus\tmdbapi\classes\data;
-
-/**
- *  This class handles all the data you can get from the api Configuration
- *
- *	@package TMDB_V3_API_PHP
- *  @author Alvaro Octal
- *  @version 0.7
- *  @date 20/01/2015
- *  @updated 31/12/2024
- *  @link https://github.com/duyplus/tmdbapi
- *  @copyright Licensed under BSD (http://www.opensource.org/licenses/bsd-license.php)
- */
+namespace Duyplus\TMDBApi\Classes\Data;
 
 class Role
 {
@@ -19,17 +7,20 @@ class Role
     // Class Variables
     //------------------------------------------------------------------------------
 
-    private $_data;
+    protected $crawl;
 
     /**
      * 	Construct Class
      *
      * 	@param array $data An array with the data of a Role
+     *  @param int|null $personId The person id
      */
-    protected function __construct($data, $ipPerson)
+    public function __construct($data, $personId = null)
     {
-        $this->_data = $data;
-        $this->_data['person_id'] = $ipPerson;
+        $this->crawl = $data;
+        if ($personId !== null) {
+            $this->crawl['person_id'] = $personId;
+        }
     }
 
     //------------------------------------------------------------------------------
@@ -39,21 +30,21 @@ class Role
     /** 
      *  Get the Role's character
      *
-     *  @return string
+     *  @return string|null
      */
     public function getCharacter()
     {
-        return $this->_data['character'];
+        return isset($this->crawl['character']) ? $this->crawl['character'] : null;
     }
 
     /** 
-     *  Get the Movie's poster
+     *  Get the Movie's credit id
      *
-     *  @return string
+     *  @return string|null
      */
-    public function getPoster()
+    public function getCreditID()
     {
-        return $this->_data['poster_path'];
+        return isset($this->crawl['credit_id']) ? $this->crawl['credit_id'] : null;
     }
 
     /**
@@ -61,11 +52,16 @@ class Role
      *  Get a item of the array, you should not get used to use this, better use specific get's.
      *
      *  @param string $item The item of the $data array you want
-     *  @return array
+     *  @return array|mixed|null Returns the entire data array, a specific item, or null if the item does not exist.
      */
     public function get($item = '')
     {
-        return (empty($item)) ? $this->_data : $this->_data[$item];
+        if (empty($item)) {
+            return $this->crawl;
+        }
+        if (array_key_exists($item, $this->crawl)) {
+            return $this->crawl[$item];
+        }
+        return null;
     }
-}
-?>
+} 

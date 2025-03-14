@@ -1,26 +1,13 @@
 <?php
-namespace duyplus\tmdbapi\classes\config;
-
-/**
- *  This class handles all the data you can get from the api Configuration
- *
- *	@package TMDB_V3_API_PHP
- *  @author Alvaro Octal
- *  @version 0.7
- *  @date 20/01/2015
- *  @updated 31/12/2024
- *  @link https://github.com/duyplus/tmdbapi
- *  @copyright Licensed under BSD (http://www.opensource.org/licenses/bsd-license.php)
- */
+namespace Duyplus\TMDBApi\Classes\Config;
 
 class APIConfiguration
 {
-
     //------------------------------------------------------------------------------
     // Class Variables
     //------------------------------------------------------------------------------
 
-    private $_data;
+    private $crawl;
 
     /**
      *  Construct Class
@@ -29,7 +16,7 @@ class APIConfiguration
      */
     public function __construct($data)
     {
-        $this->_data = $data;
+        $this->crawl = $data;
     }
 
     //------------------------------------------------------------------------------
@@ -43,7 +30,7 @@ class APIConfiguration
      */
     public function getImageBaseURL()
     {
-        return $this->_data['images']['base_url'];
+        return $this->crawl['images']['base_url'];
     }
 
     /** 
@@ -53,7 +40,7 @@ class APIConfiguration
      */
     public function getSecureImageBaseURL()
     {
-        return $this->_data['images']['secure_base_url'];
+        return $this->crawl['images']['secure_base_url'];
     }
 
     /** 
@@ -63,7 +50,7 @@ class APIConfiguration
      */
     public function getBackdropSizes()
     {
-        return $this->_data['images']['backdrop_sizes'];
+        return $this->crawl['images']['backdrop_sizes'];
     }
 
     /** 
@@ -73,7 +60,7 @@ class APIConfiguration
      */
     public function getLogoSizes()
     {
-        return $this->_data['images']['logo_sizes'];
+        return $this->crawl['images']['logo_sizes'];
     }
 
     /** 
@@ -83,7 +70,7 @@ class APIConfiguration
      */
     public function getPosterSizes()
     {
-        return $this->_data['images']['poster_sizes'];
+        return $this->crawl['images']['poster_sizes'];
     }
 
     /** 
@@ -93,7 +80,7 @@ class APIConfiguration
      */
     public function getProfileSizes()
     {
-        return $this->_data['images']['profile_sizes'];
+        return $this->crawl['images']['profile_sizes'];
     }
 
     /** 
@@ -103,9 +90,8 @@ class APIConfiguration
      */
     public function getStillSizes()
     {
-        return $this->_data['images']['still_sizes'];
+        return $this->crawl['images']['still_sizes'];
     }
-
 
     /**
      *  Get Generic.<br>
@@ -116,7 +102,7 @@ class APIConfiguration
      */
     public function get($item = '')
     {
-        return (empty($item)) ? $this->_data : $this->_data[$item];
+        return (empty($item)) ? $this->crawl : $this->crawl[$item];
     }
 
     //------------------------------------------------------------------------------
@@ -130,7 +116,6 @@ class APIConfiguration
      */
     public function getJSON()
     {
-        return json_encode($this->_data, JSON_PRETTY_PRINT);
+        return json_encode($this->crawl, JSON_PRETTY_PRINT);
     }
-}
-?>
+} 

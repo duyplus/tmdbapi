@@ -1,174 +1,163 @@
 <?php
-namespace duyplus\tmdbapi\classes\data;
+namespace Duyplus\TMDBApi\Classes\Data;
 
-use duyplus\tmdbapi\classes\roles\MovieRole;
-use duyplus\tmdbapi\classes\roles\TVShowRole;
-
-/**
- *  This class handles all the data you can get from the api Configuration
- *
- *	@package TMDB_V3_API_PHP
- *  @author Alvaro Octal
- *  @version 0.7
- *  @date 20/01/2015
- *  @updated 31/12/2024
- *  @link https://github.com/duyplus/tmdbapi
- *  @copyright Licensed under BSD (http://www.opensource.org/licenses/bsd-license.php)
- */
+use Duyplus\TMDBApi\Classes\Roles\MovieRole;
+use Duyplus\TMDBApi\Classes\Roles\TVShowRole;
 
 class Person
 {
-    //------------------------------------------------------------------------------
-    // Class Constants
-    //------------------------------------------------------------------------------
-
+    // Media Type
     const MEDIA_TYPE_PERSON = 'person';
-
-    const JOB_DIRECTOR = 'Director';
 
     //------------------------------------------------------------------------------
     // Class Variables
     //------------------------------------------------------------------------------
 
-    private $_data;
+    private $crawl;
 
     /**
-     * 	Construct Class
+     *  Construct Class
      *
-     * 	@param array $data An array with the data of the Person
+     *  @param array $data An array with the data of the Person
      */
     public function __construct($data)
     {
-        $this->_data = $data;
+        $this->crawl = $data;
     }
 
     //------------------------------------------------------------------------------
     // Get Variables
     //------------------------------------------------------------------------------
 
-    /** 
+    /**
      *  Get the Person's name
      *
      *  @return string
      */
     public function getName()
     {
-        return $this->_data['name'];
+        return $this->crawl['name'];
     }
 
-    /** 
+    /**
      *  Get the Person's id
      *
      *  @return int
      */
     public function getID()
     {
-        return $this->_data['id'];
+        return $this->crawl['id'];
     }
 
-    /** 
+    /**
      *  Get the Person's profile image
      *
      *  @return string
      */
     public function getProfile()
     {
-        return $this->_data['profile_path'];
+        return $this->crawl['profile_path'];
     }
 
-    /** 
+    /**
      *  Get the Person's birthday
      *
      *  @return string
      */
     public function getBirthday()
     {
-        return $this->_data['birthday'];
+        return $this->crawl['birthday'];
     }
 
-    /** 
+    /**
      *  Get the Person's place of birth
      *
      *  @return string
      */
     public function getPlaceOfBirth()
     {
-        return $this->_data['place_of_birth'];
+        return $this->crawl['place_of_birth'];
     }
 
-    /** 
+    /**
      *  Get the Person's imdb id
      *
      *  @return string
      */
     public function getImbdID()
     {
-        return $this->_data['imdb_id'];
+        return $this->crawl['imdb_id'];
     }
 
-    /** 
+    /**
      *  Get the Person's popularity
      *
      *  @return int
      */
     public function getPopularity()
     {
-        return $this->_data['popularity'];
+        return $this->crawl['popularity'];
     }
 
     /**
-     *  Get the Person's popularity
+     *  Get the Person's job
      *
-     *  @return int
+     *  @return string
      */
     public function getJob()
     {
-        return $this->_data['job'];
+        return $this->crawl['job'];
     }
 
     /**
-     *  Get the Person's MovieRoles
+     *  Get the Person's movie roles
      *
      *  @return MovieRole[]
      */
     public function getMovieRoles()
     {
         $movieRoles = array();
-        foreach ($this->_data['movie_credits']['cast'] as $data) {
-            $movieRoles[] = new MovieRole($data, $this->getID());
+
+        foreach ($this->crawl['movie_credits']['cast'] as $data) {
+            $movieRoles[] = new MovieRole($data);
         }
+
         return $movieRoles;
     }
 
     /**
-     *  Get the Person's TVShowRoles
+     *  Get the Person's TV show roles
      *
      *  @return TVShowRole[]
      */
     public function getTVShowRoles()
     {
         $tvShowRole = array();
-        foreach ($this->_data['tv_credits']['cast'] as $data) {
-            $tvShowRole[] = new TVShowRole($data, $this->getID());
+
+        foreach ($this->crawl['tv_credits']['cast'] as $data) {
+            $tvShowRole[] = new TVShowRole($data);
         }
+
         return $tvShowRole;
     }
 
     /**
-     *  Get Generic.<br>
+     *  Get Generic.
      *  Get a item of the array, you should not get used to use this, better use specific get's.
      *
      *  @param string $item The item of the $data array you want
-     *  @return array
+     *  @return array|mixed|null Returns the entire data array, a specific item, or null if the item does not exist.
      */
     public function get($item = '')
     {
-        return (empty($item)) ? $this->_data : $this->_data[$item];
+        if (empty($item)) {
+            return $this->crawl;
+        }
+        if (array_key_exists($item, $this->crawl)) {
+            return $this->crawl[$item];
+        }
+        return null;
     }
-
-    //------------------------------------------------------------------------------
-    // Export
-    //------------------------------------------------------------------------------
 
     /**
      *  Get the JSON representation of the Episode
@@ -177,16 +166,16 @@ class Person
      */
     public function getJSON()
     {
-        return json_encode($this->_data, JSON_PRETTY_PRINT);
+        return json_encode($this->crawl, JSON_PRETTY_PRINT);
     }
 
-
     /**
-     * @return string
+     *  Get the Media Type
+     *
+     *  @return string
      */
     public function getMediaType()
     {
         return self::MEDIA_TYPE_PERSON;
     }
-}
-?>
+} 

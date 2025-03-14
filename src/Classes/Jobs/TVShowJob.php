@@ -1,17 +1,5 @@
 <?php
-namespace duyplus\tmdbapi\classes\jobs;
-
-/**
- *  This class handles all the data you can get from the api Configuration
- *
- *	@package TMDB_V3_API_PHP
- *  @author Alvaro Octal
- *  @version 0.7
- *  @date 20/01/2015
- *  @updated 31/12/2024
- *  @link https://github.com/duyplus/tmdbapi
- *  @copyright Licensed under BSD (http://www.opensource.org/licenses/bsd-license.php)
- */
+namespace Duyplus\TMDBApi\Classes\Jobs;
 
 class TVShowJob
 {
@@ -19,17 +7,20 @@ class TVShowJob
     // Class Variables
     //------------------------------------------------------------------------------
 
-    private $_data;
+    protected $crawl;
 
     /**
      * 	Construct Class
      *
-     * 	@param array $data An array with the data of a TVShow job
+     * 	@param array $data An array with the data of a TVShowJob
+     *  @param int|null $personId The person id
      */
-    public function __construct($data, $ipPerson)
+    public function __construct($data, $personId = null)
     {
-        $this->_data = $data;
-        $this->_data['person_id'] = $ipPerson;
+        $this->crawl = $data;
+        if ($personId !== null) {
+            $this->crawl['person_id'] = $personId;
+        }
     }
 
     //------------------------------------------------------------------------------
@@ -43,7 +34,7 @@ class TVShowJob
      */
     public function getTVShowName()
     {
-        return $this->_data['name'];
+        return $this->crawl['name'];
     }
 
     /** 
@@ -53,7 +44,7 @@ class TVShowJob
      */
     public function getTVShowID()
     {
-        return $this->_data['id'];
+        return $this->crawl['id'];
     }
 
     /** 
@@ -63,7 +54,7 @@ class TVShowJob
      */
     public function getTVShowOriginalTitle()
     {
-        return $this->_data['original_name'];
+        return $this->crawl['original_name'];
     }
 
     /** 
@@ -73,7 +64,7 @@ class TVShowJob
      */
     public function getTVShowFirstAirDate()
     {
-        return $this->_data['first_air_date'];
+        return $this->crawl['first_air_date'];
     }
 
     /** 
@@ -83,27 +74,27 @@ class TVShowJob
      */
     public function getPoster()
     {
-        return $this->_data['backdrop_path'];
+        return $this->crawl['poster_path'];
     }
 
     /** 
-     *  Get the name of the job
+     *  Get the TVShow's job
      *
      *  @return string
      */
     public function getTVShowJob()
     {
-        return $this->_data['job'];
+        return $this->crawl['job'];
     }
 
     /** 
-     *  Get the job department
+     *  Get the TVShow's department
      *
      *  @return string
      */
     public function getTVShowDepartment()
     {
-        return $this->_data['department'];
+        return $this->crawl['department'];
     }
 
     /** 
@@ -113,32 +104,44 @@ class TVShowJob
      */
     public function getTVShowOverview()
     {
-        return $this->_data['overview'];
+        return $this->crawl['overview'];
     }
 
     /** 
      *  Get the TVShow's episode count
      *
-     *  @return string
+     *  @return int
      */
     public function getTVShowEpisodeCount()
     {
-        return $this->_data['episode_count'];
+        return $this->crawl['episode_count'];
     }
 
-
-    //------------------------------------------------------------------------------
-    // Export
-    //------------------------------------------------------------------------------
+    /**
+     *  Get Generic.<br>
+     *  Get a item of the array, you should not get used to use this, better use specific get's.
+     *
+     *  @param string $item The item of the $data array you want
+     *  @return array|mixed|null Returns the entire data array, a specific item, or null if the item does not exist.
+     */
+    public function get($item = '')
+    {
+        if (empty($item)) {
+            return $this->crawl;
+        }
+        if (array_key_exists($item, $this->crawl)) {
+            return $this->crawl[$item];
+        }
+        return null;
+    }
 
     /**
-     *  Get the JSON representation of the TVShow job
+     *  Get the JSON representation of the TVShowJob
      *
      *  @return string
      */
     public function getJSON()
     {
-        return json_encode($this->_data, JSON_PRETTY_PRINT);
+        return json_encode($this->crawl, JSON_PRETTY_PRINT);
     }
-}
-?>
+} 

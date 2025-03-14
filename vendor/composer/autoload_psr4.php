@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'duyplus\\tmdbapi\\' => array($baseDir . '/'),
+    'Duyplus\\TMDBApi\\' => array($baseDir . '/src'),
 );

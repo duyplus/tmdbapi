@@ -7,16 +7,16 @@ namespace Composer\Autoload;
 class ComposerStaticInit22b7873c67a602e4e71d0d56ee0dcd13
 {
     public static $prefixLengthsPsr4 = array (
-        'd' => 
+        'D' => 
         array (
-            'duyplus\\tmdbapi\\' => 16,
+            'Duyplus\\TMDBApi\\' => 16,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'duyplus\\tmdbapi\\' => 
+        'Duyplus\\TMDBApi\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/',
+            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 

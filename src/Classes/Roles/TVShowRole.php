@@ -1,19 +1,7 @@
 <?php
-namespace duyplus\tmdbapi\classes\roles;
+namespace Duyplus\TMDBApi\Classes\Roles;
 
-use duyplus\tmdbapi\classes\data\Role;
-
-/**
- *  This class handles all the data you can get from the api Configuration
- *
- *	@package TMDB_V3_API_PHP
- *  @author Alvaro Octal
- *  @version 0.7
- *  @date 20/01/2015
- *  @updated 31/12/2024
- *  @link https://github.com/duyplus/tmdbapi
- *  @copyright Licensed under BSD (http://www.opensource.org/licenses/bsd-license.php)
- */
+use Duyplus\TMDBApi\Classes\Data\Role;
 
 class TVShowRole extends Role
 {
@@ -21,16 +9,14 @@ class TVShowRole extends Role
     // Class Variables
     //------------------------------------------------------------------------------
 
-    private $_data;
-
     /**
      * 	Construct Class
      *
      * 	@param array $data An array with the data of a TVShowRole
+     *  @param int|null $idPerson The person id
      */
-    public function __construct($data, $idPerson)
+    public function __construct($data, $idPerson = null)
     {
-        $this->_data = $data;
         parent::__construct($data, $idPerson);
     }
 
@@ -45,7 +31,7 @@ class TVShowRole extends Role
      */
     public function getTVShowName()
     {
-        return $this->_data['name'];
+        return $this->crawl['name'];
     }
 
     /** 
@@ -55,7 +41,7 @@ class TVShowRole extends Role
      */
     public function getTVShowID()
     {
-        return $this->_data['id'];
+        return $this->crawl['id'];
     }
 
     /** 
@@ -65,7 +51,7 @@ class TVShowRole extends Role
      */
     public function getTVShowOriginalTitle()
     {
-        return $this->_data['original_name'];
+        return $this->crawl['original_name'];
     }
 
     /** 
@@ -75,7 +61,7 @@ class TVShowRole extends Role
      */
     public function getTVShowFirstAirDate()
     {
-        return $this->_data['first_air_date'];
+        return $this->crawl['first_air_date'];
     }
 
     //------------------------------------------------------------------------------
@@ -83,13 +69,12 @@ class TVShowRole extends Role
     //------------------------------------------------------------------------------
 
     /**
-     *  Get the JSON representation of the Episode
+     *  Get the JSON representation of the TVShowRole
      *
      *  @return string
      */
     public function getJSON()
     {
-        return json_encode($this->_data, JSON_PRETTY_PRINT);
+        return json_encode($this->crawl, JSON_PRETTY_PRINT);
     }
-}
-?>
+} 

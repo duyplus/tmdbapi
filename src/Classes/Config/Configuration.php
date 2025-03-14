@@ -1,21 +1,8 @@
 <?php
-namespace duyplus\tmdbapi\classes\config;
-
-/**
- *  This class handles all the data you can get from the api Configuration
- *
- *	@package TMDB_V3_API_PHP
- *  @author Alvaro Octal
- *  @version 0.7
- *  @date 20/01/2015
- *  @updated 31/12/2024
- *  @link https://github.com/duyplus/tmdbapi
- *  @copyright Licensed under BSD (http://www.opensource.org/licenses/bsd-license.php)
- */
+namespace Duyplus\TMDBApi\Classes\Config;
 
 class Configuration
 {
-
 	//------------------------------------------------------------------------------
 	// Class Variables
 	//------------------------------------------------------------------------------
@@ -29,42 +16,46 @@ class Configuration
 	/**
 	 *	Data Return Configuration - Manipulate if you want to tune your results
 	 */
-	private $appender = [
-		'movie' => array('account_states', 'alternative_titles', 'credits', 'images', 'keywords', 'release_dates', 'videos', 'translations', 'similar', 'reviews', 'lists', 'changes', 'rating'),
-		'tvshow' => array('account_states', 'alternative_titles', 'changes', 'content_rating', 'credits', 'external_ids', 'images', 'keywords', 'rating', 'similar', 'translations', 'videos'),
-		'season' => array('changes', 'account_states', 'credits', 'external_ids', 'images', 'videos'),
-		'episode' => array('changes', 'account_states', 'credits', 'external_ids', 'images', 'rating', 'videos'),
-		'person' => array('movie_credits', 'tv_credits', 'combined_credits', 'external_ids', 'images', 'tagged_images', 'changes'),
+	private $appender = array(
+		'movie' => array('trailers', 'images', 'credits', 'translations', 'reviews'),
+		'tvshow' => array('trailers', 'images', 'credits', 'translations', 'keywords'),
+		'season' => array('trailers', 'images', 'credits', 'translations'),
+		'episode' => array('trailers', 'images', 'credits', 'translations'),
+		'person' => array('movie_credits', 'tv_credits', 'images'),
 		'collection' => array('images'),
 		'company' => array('movies'),
-	];
-
-	//------------------------------------------------------------------------------
-	// Constructor
-	//------------------------------------------------------------------------------
+	);
 
 	/**
 	 *  Construct Class
 	 *
-	 *  @param array $cnf An array with the configuration data
+	 *  @param array $config
 	 */
 	public function __construct($cnf = null)
 	{
-		// Check if config is given and use default if not
-		// Note: There is no API Key inside the default conf
-		if (!isset($cnf)) {
-			require_once __DIR__ . '/../../configuration/Default.php';
+		// Path to configuration file if given
+		if (is_string($cnf)) {
+			if (file_exists($cnf)) {
+				include($cnf);
+				if (is_array($cnf)) {
+					$this->configure($cnf);
+				}
+			}
+		} elseif (is_array($cnf)) {
+			$this->configure($cnf);
+		} else {
+			// Load default configuration
+			$dir = dirname(__FILE__);
+			$configDir = realpath($dir . '/../../Config');
+			if (file_exists($configDir . '/Default.php')) {
+				include($configDir . '/Default.php');
+				$this->configure($cnf);
+			}
 		}
-		$this->setAPIKey(isset($cnf['apikey']) ? $cnf['apikey'] : null);
-		$this->setLang(isset($cnf['lang']) ? $cnf['lang'] : 'en');
-		$this->setTimeZone(isset($cnf['timezone']) ? $cnf['timezone'] : 'UTC');
-		$this->setAdult(isset($cnf['adult']) ? (bool) $cnf['adult'] : false);
-		$this->setDebug(isset($cnf['debug']) ? (bool) $cnf['debug'] : false);
 	}
 
-
 	//------------------------------------------------------------------------------
-	// Set Variables
+	// Setup Functions
 	//------------------------------------------------------------------------------
 
 	/**
@@ -118,10 +109,10 @@ class Configuration
 	}
 
 	/**
-	 *  Set an appender for a special type
+	 *  Set the appender for a type of result
 	 *
-	 *  @param array $appender
 	 *  @param string $type
+	 *  @param array $data
 	 */
 	public function setAppender($appender, $type)
 	{
@@ -163,13 +154,13 @@ class Configuration
 	}
 
 	/**
-	 *  Get the adult string
+	 *  Get the adult flag
 	 *
-	 *  @return string
+	 *  @return boolean
 	 */
 	public function getAdult()
 	{
-		return ($this->adult) ? 'true' : 'false';
+		return $this->adult;
 	}
 
 	/**
@@ -183,7 +174,7 @@ class Configuration
 	}
 
 	/**
-	 *  Get the appender array for a type
+	 *  Get the appender for a type of result
 	 *
 	 *  @return array
 	 */
@@ -191,6 +182,37 @@ class Configuration
 	{
 		return $this->appender[$type];
 	}
-}
 
-?>
+	//------------------------------------------------------------------------------
+	// Private Methods
+	//------------------------------------------------------------------------------
+
+	/**
+	 *  Configure the class variables
+	 *
+	 *  @param array $cnf
+	 */
+	private function configure($cnf)
+	{
+		if (isset($cnf['apikey'])) {
+			$this->setAPIKey($cnf['apikey']);
+		}
+		if (isset($cnf['lang'])) {
+			$this->setLang($cnf['lang']);
+		}
+		if (isset($cnf['timezone'])) {
+			$this->setTimeZone($cnf['timezone']);
+		}
+		if (isset($cnf['adult'])) {
+			$this->setAdult($cnf['adult']);
+		}
+		if (isset($cnf['debug'])) {
+			$this->setDebug($cnf['debug']);
+		}
+		if (isset($cnf['appender']) && is_array($cnf['appender'])) {
+			foreach ($cnf['appender'] as $type => $appender) {
+				$this->setAppender($appender, $type);
+			}
+		}
+	}
+} 

@@ -1,19 +1,7 @@
 <?php
-namespace duyplus\tmdbapi\classes\roles;
+namespace Duyplus\TMDBApi\Classes\Roles;
 
-use duyplus\tmdbapi\classes\data\Role;
-
-/**
- *  This class handles all the data you can get from the api Configuration
- *
- *	@package TMDB_V3_API_PHP
- *  @author Alvaro Octal
- *  @version 0.7
- *  @date 20/01/2015
- *  @updated 31/12/2024
- *  @link https://github.com/duyplus/tmdbapi
- *  @copyright Licensed under BSD (http://www.opensource.org/licenses/bsd-license.php)
- */
+use Duyplus\TMDBApi\Classes\Data\Role;
 
 class MovieRole extends Role
 {
@@ -21,16 +9,14 @@ class MovieRole extends Role
     // Class Variables
     //------------------------------------------------------------------------------
 
-    private $_data;
-
     /**
-     * 	Construct Class
+     *  Construct Class
      *
-     * 	@param array $data An array with the data of a MovieRole
+     *  @param array $data An array with the data of the MovieRole
+     *  @param int|null $idPerson The Person id
      */
-    public function __construct($data, $idPerson)
+    public function __construct($data, $idPerson = null)
     {
-        $this->_data = $data;
         parent::__construct($data, $idPerson);
     }
 
@@ -38,44 +24,44 @@ class MovieRole extends Role
     // Get Variables
     //------------------------------------------------------------------------------
 
-    /** 
-     *  Get the Movie's title of the role
+    /**
+     *  Get the Movie's title
      *
      *  @return string
      */
     public function getMovieTitle()
     {
-        return $this->_data['title'];
+        return $this->get('title');
     }
 
-    /** 
+    /**
      *  Get the Movie's id
      *
      *  @return int
      */
     public function getMovieID()
     {
-        return $this->_data['id'];
+        return $this->get('id');
     }
 
-    /** 
-     *  Get the Movie's original title of the role
+    /**
+     *  Get the Movie's original title
      *
      *  @return string
      */
     public function getMovieOriginalTitle()
     {
-        return $this->_data['original_title'];
+        return $this->get('original_title');
     }
 
-    /** 
-     *  Get the Movie's release date of the role
+    /**
+     *  Get the Movie's release date
      *
      *  @return string
      */
     public function getMovieReleaseDate()
     {
-        return $this->_data['release_date'];
+        return $this->get('release_date');
     }
 
     //------------------------------------------------------------------------------
@@ -83,13 +69,12 @@ class MovieRole extends Role
     //------------------------------------------------------------------------------
 
     /**
-     *  Get the JSON representation of the Episode
+     *  Get the JSON representation of the MovieRole
      *
      *  @return string
      */
     public function getJSON()
     {
-        return json_encode($this->_data, JSON_PRETTY_PRINT);
+        return json_encode($this->get(), JSON_PRETTY_PRINT);
     }
-}
-?>
+} 

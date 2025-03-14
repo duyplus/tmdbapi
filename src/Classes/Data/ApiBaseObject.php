@@ -1,19 +1,7 @@
 <?php
-namespace duyplus\tmdbapi\classes\data;
+namespace Duyplus\TMDBApi\Classes\Data;
 
-use duyplus\tmdbapi\classes\data\Person;
-
-/**
- *  This class handles all the data you can get from the api Configuration
- *
- *	@package TMDB_V3_API_PHP
- *  @author Alvaro Octal
- *  @version 0.7
- *  @date 20/01/2015
- *  @updated 31/12/2024
- *  @link https://github.com/duyplus/tmdbapi
- *  @copyright Licensed under BSD (http://www.opensource.org/licenses/bsd-license.php)
- */
+use Duyplus\TMDBApi\Classes\Data\Person;
 
 class ApiBaseObject
 {
@@ -30,7 +18,7 @@ class ApiBaseObject
     // Class Variables
     //------------------------------------------------------------------------------
 
-    protected $_data;
+    protected $crawl;
 
     /**
      * 	Construct Class
@@ -39,7 +27,7 @@ class ApiBaseObject
      */
     public function __construct($data)
     {
-        $this->_data = $data;
+        $this->crawl = $data;
     }
 
     /**
@@ -49,7 +37,7 @@ class ApiBaseObject
      */
     public function getID()
     {
-        return $this->_data['id'];
+        return $this->crawl['id'];
     }
 
     /**
@@ -59,7 +47,7 @@ class ApiBaseObject
      */
     public function getPoster()
     {
-        return $this->_data['poster_path'];
+        return $this->crawl['poster_path'];
     }
 
     /**
@@ -69,7 +57,7 @@ class ApiBaseObject
      */
     public function getVoteAverage()
     {
-        return $this->_data['vote_average'];
+        return $this->crawl['vote_average'];
     }
 
     /**
@@ -79,7 +67,7 @@ class ApiBaseObject
      */
     public function getVoteCount()
     {
-        return $this->_data['vote_count'];
+        return $this->crawl['vote_count'];
     }
 
     /**
@@ -99,7 +87,7 @@ class ApiBaseObject
     protected function getCredits($key)
     {
         $persons = [];
-        foreach ($this->_data['credits'][$key] as $data) {
+        foreach ($this->crawl['credits'][$key] as $data) {
             $persons[] = new Person($data);
         }
         return $persons;
@@ -124,11 +112,11 @@ class ApiBaseObject
     public function get($item = '')
     {
         if (empty($item)) {
-            return $this->_data;
+            return $this->crawl;
         }
-        if (array_key_exists($item, $this->_data)) {
-            return $this->_data[$item];
+        if (array_key_exists($item, $this->crawl)) {
+            return $this->crawl[$item];
         }
         return null;
     }
-}
+} 

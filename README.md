@@ -30,15 +30,15 @@ composer require duyplus/tmdbapi
 If you have a $conf array
 
 ```php
-use duyplus\tmdbapi\TMDB;
-// if you have a $conf array - (See LIB_ROOT/configuration/default.php as an example)
+use Duyplus\TMDBApi\TMDB;
+// if you have a $conf array - (See LIB_ROOT/src/Config/Default.php as an example)
 $tmdb = new TMDB($conf);
 ```
 
 If you have no $conf array it uses the default conf but you need to have an API Key
 
 ```php
-use duyplus\tmdbapi\TMDB;
+use Duyplus\TMDBApi\TMDB;
 // if you have no $conf it uses the default config
 $tmdb = new TMDB();
 //Insert your API Key of TMDB

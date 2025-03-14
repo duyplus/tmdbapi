@@ -1,7 +1,7 @@
 <?php
 include('../vendor/autoload.php');
 
-use duyplus\tmdbapi\TMDB;
+use Duyplus\TMDBApi\TMDB;
 
 $selectedZone       = isset($_GET['zone']) ? $_GET['zone'] : null;
 $selectedExample    = isset($_GET['example']) ? $_GET['example'] : null;

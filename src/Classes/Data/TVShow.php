@@ -1,19 +1,7 @@
 <?php
-namespace duyplus\tmdbapi\classes\data;
+namespace Duyplus\TMDBApi\Classes\Data;
 
-use duyplus\tmdbapi\classes\data\Season;
-
-/**
- *  This class handles all the data you can get from the api Configuration
- *
- *	@package TMDB_V3_API_PHP
- *  @author Alvaro Octal
- *  @version 0.7
- *  @date 20/01/2015
- *  @updated 31/12/2024
- *  @link https://github.com/duyplus/tmdbapi
- *  @copyright Licensed under BSD (http://www.opensource.org/licenses/bsd-license.php)
- */
+use Duyplus\TMDBApi\Classes\Data\Season;
 
 class TVShow extends ApiBaseObject
 {
@@ -28,7 +16,7 @@ class TVShow extends ApiBaseObject
      */
     public function getName()
     {
-        return $this->_data['name'];
+        return $this->crawl['name'];
     }
 
     /**
@@ -38,7 +26,7 @@ class TVShow extends ApiBaseObject
      */
     public function getOriginalName()
     {
-        return $this->_data['original_name'];
+        return $this->crawl['original_name'];
     }
 
     /**
@@ -48,7 +36,7 @@ class TVShow extends ApiBaseObject
      */
     public function getNumSeasons()
     {
-        return $this->_data['number_of_seasons'];
+        return $this->crawl['number_of_seasons'];
     }
 
     /**
@@ -58,20 +46,20 @@ class TVShow extends ApiBaseObject
      */
     public function getNumEpisodes()
     {
-        return $this->_data['number_of_episodes'];
+        return $this->crawl['number_of_episodes'];
     }
 
     /**
      *  Get a TVShow's season
      *
      *  @param int $numSeason The season number
-     * 	@return int
+     * 	@return Season
      */
     public function getSeason($numSeason)
     {
         $data = null;
 
-        foreach ($this->_data['seasons'] as $season) {
+        foreach ($this->crawl['seasons'] as $season) {
             if ($season['season_number'] == $numSeason) {
                 $data = $season;
                 break;
@@ -89,7 +77,7 @@ class TVShow extends ApiBaseObject
     {
         $seasons = array();
 
-        foreach ($this->_data['seasons'] as $data) {
+        foreach ($this->crawl['seasons'] as $data) {
             $seasons[] = new Season($data, $this->getID());
         }
 
@@ -103,7 +91,7 @@ class TVShow extends ApiBaseObject
      */
     public function getBackdrop()
     {
-        return $this->_data['backdrop_path'];
+        return $this->crawl['backdrop_path'];
     }
 
     /**
@@ -113,7 +101,7 @@ class TVShow extends ApiBaseObject
      */
     public function getOverview()
     {
-        return $this->_data['overview'];
+        return $this->crawl['overview'];
     }
 
     /**
@@ -123,7 +111,7 @@ class TVShow extends ApiBaseObject
      */
     public function getInProduction()
     {
-        return $this->_data['in_production'];
+        return $this->crawl['in_production'];
     }
 
     //------------------------------------------------------------------------------
@@ -137,7 +125,7 @@ class TVShow extends ApiBaseObject
      */
     public function getJSON()
     {
-        return json_encode($this->_data, JSON_PRETTY_PRINT);
+        return json_encode($this->crawl, JSON_PRETTY_PRINT);
     }
 
     /**
@@ -147,4 +135,4 @@ class TVShow extends ApiBaseObject
     {
         return self::MEDIA_TYPE_TV;
     }
-}
+} 

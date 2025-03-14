@@ -1,17 +1,5 @@
 <?php
-namespace duyplus\tmdbapi\classes\jobs;
-
-/**
- *  This class handles all the data you can get from the api Configuration
- *
- *	@package TMDB_V3_API_PHP
- *  @author Alvaro Octal
- *  @version 0.7
- *  @date 20/01/2015
- *  @updated 31/12/2024
- *  @link https://github.com/duyplus/tmdbapi
- *  @copyright Licensed under BSD (http://www.opensource.org/licenses/bsd-license.php)
- */
+namespace Duyplus\TMDBApi\Classes\Jobs;
 
 class MovieJob
 {
@@ -19,17 +7,20 @@ class MovieJob
     // Class Variables
     //------------------------------------------------------------------------------
 
-    private $_data;
+    protected $crawl;
 
     /**
      * 	Construct Class
      *
-     * 	@param array $data An array with the data of a Movie job
+     * 	@param array $data An array with the data of a MovieJob
+     *  @param int|null $personId The person id
      */
-    public function __construct($data, $ipPerson)
+    public function __construct($data, $personId = null)
     {
-        $this->_data = $data;
-        $this->_data['person_id'] = $ipPerson;
+        $this->crawl = $data;
+        if ($personId !== null) {
+            $this->crawl['person_id'] = $personId;
+        }
     }
 
     //------------------------------------------------------------------------------
@@ -43,7 +34,7 @@ class MovieJob
      */
     public function getMovieTitle()
     {
-        return $this->_data['title'];
+        return $this->crawl['title'];
     }
 
     /** 
@@ -53,7 +44,7 @@ class MovieJob
      */
     public function getMovieID()
     {
-        return $this->_data['id'];
+        return $this->crawl['id'];
     }
 
     /** 
@@ -63,7 +54,7 @@ class MovieJob
      */
     public function getMovieOriginalTitle()
     {
-        return $this->_data['original_title'];
+        return $this->crawl['original_title'];
     }
 
     /** 
@@ -73,9 +64,8 @@ class MovieJob
      */
     public function getMovieReleaseDate()
     {
-        return $this->_data['release_date'];
+        return $this->crawl['release_date'];
     }
-
 
     /** 
      *  Get the Movie's poster
@@ -84,28 +74,27 @@ class MovieJob
      */
     public function getPoster()
     {
-        return $this->_data['poster_path'];
+        return $this->crawl['poster_path'];
     }
 
     /** 
-     *  Get the name of the job
+     *  Get the Movie's job
      *
      *  @return string
      */
     public function getMovieJob()
     {
-        return $this->_data['job'];
+        return $this->crawl['job'];
     }
 
-
-    /**
-     *  Get the job department
+    /** 
+     *  Get the Movie's department
      *
      *  @return string
      */
     public function getMovieDepartment()
     {
-        return $this->_data['department'];
+        return $this->crawl['department'];
     }
 
     /** 
@@ -115,22 +104,34 @@ class MovieJob
      */
     public function getMovieOverview()
     {
-        return $this->_data['overview'];
+        return $this->crawl['overview'];
     }
 
-
-    //------------------------------------------------------------------------------
-    // Export
-    //------------------------------------------------------------------------------
+    /**
+     *  Get Generic.<br>
+     *  Get a item of the array, you should not get used to use this, better use specific get's.
+     *
+     *  @param string $item The item of the $data array you want
+     *  @return array|mixed|null Returns the entire data array, a specific item, or null if the item does not exist.
+     */
+    public function get($item = '')
+    {
+        if (empty($item)) {
+            return $this->crawl;
+        }
+        if (array_key_exists($item, $this->crawl)) {
+            return $this->crawl[$item];
+        }
+        return null;
+    }
 
     /**
-     *  Get the JSON representation of the Movie job
+     *  Get the JSON representation of the MovieJob
      *
      *  @return string
      */
     public function getJSON()
     {
-        return json_encode($this->_data, JSON_PRETTY_PRINT);
+        return json_encode($this->crawl, JSON_PRETTY_PRINT);
     }
 }
-?>
